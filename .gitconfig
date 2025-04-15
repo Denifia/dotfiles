@@ -1,0 +1,10 @@
+[core]
+	editor = "nvim"
+[alias]
+	log10 = log --oneline -n 10
+[push]
+	autoSetupRemote = on
+[init]
+	defaultBranch = main
+[include]
+	path = ~/.gitconfig-private

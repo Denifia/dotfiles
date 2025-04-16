@@ -1,5 +1,16 @@
 -- [[ Key Mappings ]]
 
+--[[
+-- NOTE:
+-- * My keyboard layout is Colemak
+-- * CTRL mappings are case-insensitive
+--]]
+
+--[[
+-- TODO:
+-- * Write a helper function to set the key mappings
+--]]
+
 -- Up/down/left/right
 vim.keymap.set({ 'n', 'x' }, 'h', 'h', { desc = 'Left (h)' })
 vim.keymap.set({ 'n', 'x' }, 'n', 'j', { desc = 'Down (j)' })
@@ -39,6 +50,13 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 
 -- Open file explorer
 vim.keymap.set('n', '-', '<CMD>Oil --float<CR>', { desc = 'Open parent directory' })
+
+-- Repeat last / or ? search
+vim.keymap.set('n', 'l', 'n', { desc = 'Repeat last / or ? search (forwards)' })
+vim.keymap.set('n', 'L', 'N', { desc = 'Repeat last / or ? search (backwards)' })
+
+-- Jump locations becomes CTRL-O (backwards) and CTRL-M (forwards)
+vim.keymap.set('n', '<C-m>', '<C-i>', { desc = 'Move to newer jump location' })
 
 -- Move window movements to colemak
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })

@@ -65,8 +65,8 @@ vim.keymap.set('n', '<C-n>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-e>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Helpers
-vim.keymap.set({ 'n' }, '<C-X>', '<cmd>.lua<CR>', { desc = 'Execute selected lua' })
-vim.keymap.set({ 'v' }, '<C-X>', "<cmd>'<,'>lua<CR>", { desc = 'Execute selected lua' })
+-- vim.keymap.set({ 'n' }, '<C-X>', '<cmd>.lua<CR>', { desc = 'Execute selected lua' })
+-- vim.keymap.set({ 'v' }, '<C-X>', "<cmd>'<,'>lua<CR>", { desc = 'Execute selected lua' })
 
 -- Code refactoring
 -- [G]o [R]efactoring

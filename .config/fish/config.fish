@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 alias cd="z"
+alias nvim-config='nvim -S ~/.local/share/nvim/session/nvim.vim'
 
 # Setup git bare repo for dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

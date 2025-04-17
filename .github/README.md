@@ -19,3 +19,14 @@ cgit config --local status.showUntrackedFiles no
 
 <!-- TODO: make the above into a install script -->
 
+### Windows special steps
+
+# Some apps like to keep their config at %localappdata%/app-name instead of ~/.config/app-name like on Linux. We need to setup symlinks to fix that.
+
+```pwsh
+# neovim
+New-Item -Path ~\appdata\local\nvim -ItemType SymbolicLink -Value ~\.config\nvim
+
+# oh-my-posh
+New-Item -Path ~\appdata\local\oh-my-posh -ItemType SymbolicLink -Value ~\.config\ohmyposh
+```

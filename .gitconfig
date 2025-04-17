@@ -2,9 +2,24 @@
 	editor = "nvim"
 [alias]
 	log10 = log --oneline -n 10
-[push]
-	autoSetupRemote = on
+	rl = reflog --date=iso
 [init]
 	defaultBranch = main
+[merge]
+	conflictstyle = diff3
+[auto]
+	autoStash = true
+	autosquash = true
+[push]
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[rebase]
+	autosquash = true
+	autoStash = true
+[grep]
+	lineNumber = true
+[rerere]
+	enabled = true
 [include]
 	path = ~/.gitconfig-private

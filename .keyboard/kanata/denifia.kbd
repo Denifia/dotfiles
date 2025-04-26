@@ -5,33 +5,42 @@
   lsft z    x    c    v    b       n    m    ,    .    /    rsft
 
   lctl lalt lmet              spc            rmet ralt
+  lft down up rght 
 )
 
+#|
+- chord 'g' and 'm' to enter CAPS WORD mode
+|#
 (deflayer base
-  _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
+  XX   XX   XX   XX   XX   XX      XX   XX   XX   XX   XX   XX   XX   XX
   XX   q    w    f    p    b       j    l    u    y    '    XX   XX   XX
-  XX   a    @rr  @ss  @tt  @chg    @chm @nn  @ee  @ii  o    XX   XX   
+  XX   @aa  @rr  @ss  @tt  @chg    @chm @nn  @ee  @ii  o    XX   XX
   z    x    c    d    v    XX      k    h    ,    .    /    XX
 
-  XX   XX   @sft               @nav          @sym  @reload 
+  XX   XX   @sft               @nav          @sym  @reload
+  XX XX XX XX
 )
 
+;; right hand pinky holds 'space' then other fingers use vim style movement
 (deflayer navigation
-  _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
-  XX   @pad @cls bck  fwd  XX      home pgdn pgup end  _    _    _    _
-  XX   @all @sav S-tab tab XX      lft  down up   rght o    '    _
-  @ndo @cut @cpy XX   @pst XX      XX   XX   XX   XX   XX   _   
-  
+  XX   XX   XX   XX   XX   XX      XX   XX   XX   XX   XX   XX   XX   XX
+  XX   @pad @cls bck  fwd  XX      home pgdn pgup end  XX   XX   XX   XX
+  XX   @all @sav S-tab tab XX      lft  down up   rght o    '    XX
+  @ndo @cut @cpy XX   @pst XX      XX   XX   XX   XX   XX   XX
+
   XX   XX   del                _             esc  @reload 
+  XX XX XX XX
 )
 
+;; left hand pinky holds 'a' then other fingers use 'wasd' style movement
 (deflayer numpad
   _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
   XX   XX   home up   end  pgup    @/   7    8    9    XX   XX   XX   XX
   XX   XX   lft  down rght pgdn    @-   4    5    6    0    XX   XX
   XX   XX   XX   XX   XX   XX      ,    1    2    3    .    XX
   
-  XX   XX   del             @nbs             @std  @reload 
+  XX   XX   _             @nbs             @std  @reload 
+  XX XX XX XX
 )
 
 (deflayer symbols
@@ -41,6 +50,7 @@
   @~   @[   @]   @_   @#   XX      @|   @!   @;   @:   @?   XX
   
   XX   XX   bspc                _             esc  @reload 
+  XX XX XX XX
 )
 
 ;; Timing variables for tap-hold effects.
@@ -65,6 +75,7 @@
      pad (layer-switch numpad)
      std (layer-switch base)
     sym (tap-hold-press $tap_timeout $hold_timeout ret (layer-while-held symbols))
+    aa (tap-hold $tap_timeout $long_hold_timeout a (layer-while-held numpad))
   
     ;; mod-tap
     reload (multi f24 (tap-hold 200 200 _ lrld)) ;; tap = keypress, hold = live reload

@@ -71,3 +71,6 @@ vim.opt.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.opt.confirm = true
+
+-- Conceal level to control how "conceal" syntax is displayed
+vim.opt.conceallevel = 2

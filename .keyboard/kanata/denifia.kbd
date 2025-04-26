@@ -1,0 +1,157 @@
+(defsrc
+  grv  1    2    3    4    5       6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t       y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g       h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b       n    m    ,    .    /    rsft
+
+  lctl lalt lmet              spc            rmet ralt
+)
+
+(deflayer base
+  _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
+  XX   q    w    f    p    b       j    l    u    y    '    XX   XX   XX
+  XX   a    @rr  @ss  @tt  @chg    @chm @nn  @ee  @ii  o    XX   XX   
+  z    x    c    d    v    XX      k    h    ,    .    /    XX
+
+  XX   XX   @sft               @nav          @sym  @reload 
+)
+
+(deflayer navigation
+  _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
+  XX   @pad @cls bck  fwd  XX      home pgdn pgup end  _    _    _    _
+  XX   @all @sav S-tab tab XX      lft  down up   rght o    '    _
+  @ndo @cut @cpy XX   @pst XX      XX   XX   XX   XX   XX   _   
+  
+  XX   XX   del                _             esc  @reload 
+)
+
+(deflayer numpad
+  _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
+  XX   XX   home up   end  pgup    @/   7    8    9    XX   XX   XX   XX
+  XX   XX   lft  down rght pgdn    @-   4    5    6    0    XX   XX
+  XX   XX   XX   XX   XX   XX      ,    1    2    3    .    XX
+  
+  XX   XX   del             @nbs             @std  @reload 
+)
+
+(deflayer symbols
+  _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
+  XX   @^   @<   @>   @$   @%      @@   @&   @*   @'   @`   XX   XX   XX
+  XX   @{   @pl  @pr  @}   @=      @\   @+   @-   @/   @''  XX   XX
+  @~   @[   @]   @_   @#   XX      @|   @!   @;   @:   @?   XX
+  
+  XX   XX   bspc                _             esc  @reload 
+)
+
+;; Timing variables for tap-hold effects.
+(defvar
+  ;; The key must be pressed twice in 200ms to enable repetitions.
+  tap_timeout 200
+  ;; The key must be held 200ms to become a layer shift.
+  hold_timeout 200
+  ;; Slightly higher value for typing keys, to prevent unexpected hold effect.
+  long_hold_timeout 300
+
+  chord_timeout 10000
+)
+
+(defalias 
+  chg (chord wordcaps g)
+  chm (chord wordcaps m)
+  cpswd (caps-word $chord_timeout)
+  
+  ;; layers
+    nav (tap-hold $tap_timeout $long_hold_timeout spc (layer-while-held navigation))
+     pad (layer-switch numpad)
+     std (layer-switch base)
+    sym (tap-hold-press $tap_timeout $hold_timeout ret (layer-while-held symbols))
+  
+    ;; mod-tap
+    reload (multi f24 (tap-hold 200 200 _ lrld)) ;; tap = keypress, hold = live reload
+    sft (tap-hold-press $tap_timeout $hold_timeout bspc lsft)
+    
+    
+  ;; Home-row mods
+  ;; rst
+  rr (tap-hold $tap_timeout $long_hold_timeout r lmet)
+  ss (tap-hold $tap_timeout $long_hold_timeout s lctl)
+  tt (tap-hold $tap_timeout $long_hold_timeout t lalt)
+  ;; nei
+  nn (tap-hold $tap_timeout $long_hold_timeout n ralt)
+  ee (tap-hold $tap_timeout $long_hold_timeout e rctl)
+  ii (tap-hold $tap_timeout $long_hold_timeout i rmet)
+
+    ;; helper actions
+  all C-a
+  sav C-s
+  cls C-w
+  ndo C-z
+  cut C-x
+  cpy C-c
+  pst C-v
+)
+
+(defchords wordcaps 500
+  (g  ) g 
+  (  m) m
+  (g m) @cpswd
+)
+
+;; Symbols layer
+(defalias
+nbs spc ;; no narrow no-break space in Qwerty
+
+  ^  S-6
+  <  S-,
+  >  S-.
+  $  S-4
+  %  S-5
+  @  S-2
+  &  S-7
+  *  S-8
+  '  '
+  `  `
+
+  {  S-[
+  pl S-9
+  pr S-0
+  }  S-]
+  =  =
+  \  \
+  +  S-=
+  -  -
+  /  /
+  '' S-'
+
+  ~  S-`
+  [  [
+  ]  ]
+  _  S--
+  #  S-3
+  |  S-\
+  !  S-1
+  ;  ;
+  :  S-;
+  ?  S-/
+)
+
+(defcfg
+  process-unmapped-keys   yes
+  concurrent-tap-hold     yes
+  allow-hardware-repeat   no
+)
+
+#|
+;; not used any more
+(deflayer colemak-wide
+ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+ @norm q w f p b XX j l u y ; [ ]
+ _ a r s t g XX m n e i o '
+ _ x c d v z XX k h , . /
+ _ _ _     _     @reload _
+ )
+(defalias wide (layer-switch colemak-wide))
+(defalias norm (layer-switch colemak))
+|#
+
+;; vim: set ft=lisp

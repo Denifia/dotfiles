@@ -85,8 +85,8 @@ vim.keymap.set('n', '<leader>rD', 'gD', { desc = 'Go to declaration' })
 vim.keymap.set('n', '<leader>z', '<cmd>source %<CR>')
 
 -- Jump up/down and center cursor
-vim.keymap.set('n', '<S-Up>', '<C-U>zz')
-vim.keymap.set('n', '<S-Down>', '<C-D>zz')
+vim.keymap.set('n', '<C-U>', '<C-U>zz')
+vim.keymap.set('n', '<C-D>', '<C-D>zz')
 
 -- Obsidian shortcuts
 vim.keymap.set('n', '<leader>on', ':ObsidianNew<cr>', { desc = '[O]bsidian [N]ew' })

@@ -12,7 +12,8 @@
 --]]
 
 -- Up/down/left/right
-vim.keymap.set({ 'n', 'x' }, 'h', 'h', { desc = 'Left (h)' })
+vim.keymap.set({ 'n', 'x' }, 'm', 'h', { desc = 'Left (h)' })
+vim.keymap.set({ 'n', 'x' }, 'M', 'H', { desc = 'Left (h)' })
 vim.keymap.set({ 'n', 'x' }, 'n', 'j', { desc = 'Down (j)' })
 vim.keymap.set({ 'n', 'x' }, 'N', 'J', { desc = '' })
 vim.keymap.set({ 'n', 'x' }, 'e', 'k', { desc = 'Up (k)' })
@@ -55,11 +56,11 @@ vim.keymap.set('n', '-', '<CMD>Oil --float<CR>', { desc = 'Open parent directory
 vim.keymap.set('n', 'l', 'n', { desc = 'Repeat last / or ? search (forwards)' })
 vim.keymap.set('n', 'L', 'N', { desc = 'Repeat last / or ? search (backwards)' })
 
--- Jump locations becomes CTRL-O (backwards) and CTRL-M (forwards)
-vim.keymap.set('n', '<C-m>', '<C-i>', { desc = 'Move to newer jump location' })
+-- Jump locations becomes CTRL-O (backwards) and CTRL-H (forwards)
+vim.keymap.set('n', '<C-h>', '<C-i>', { desc = 'Move to newer jump location' })
 
 -- Move window movements to colemak
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-m>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-i>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-n>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-e>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })

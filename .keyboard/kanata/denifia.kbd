@@ -21,7 +21,7 @@
   XX XX XX XX
 )
 
-;; right hand pinky holds 'space' then other fingers use vim style movement
+;; right hand thumb holds 'space' then other fingers use vim style movement
 (deflayer navigation
   XX   XX   XX   XX   XX   XX      XX   XX   XX   XX   XX   XX   XX   XX
   XX   @pad @cls bck  fwd  XX      home pgdn pgup end  XX   XX   XX   XX

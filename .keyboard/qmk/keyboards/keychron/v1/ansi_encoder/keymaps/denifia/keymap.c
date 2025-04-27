@@ -14,81 +14,81 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+ #include QMK_KEYBOARD_H
 
-// clang-format off
-
-enum layers{
-    MAC_BASE,
-    _FUN,
-    WIN_BASE,
-    _SYM,
-    _NAV,
-    _NUM,
-    WIN_FN
-};
-
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
-
-#define L_BA1   DF(_ALPHA_COLEMAK_DH_SPLIT)
-#define L_NAV   MO(_NAV)
-#define L_SYM   MO(_SYM)
-#define L_NUM   MO(_NUM)
-#define L_FN1   MO(_FUN)
-
-#define L_BA2   DF(_ALPHA_COLEMAK_DH)
-#define L_FN2   MO(_FUN_DH)
-
-enum custom_keycodes {
-    SMTD_KEYCODES_BEGIN = SAFE_RANGE,
-    
-    CKC_A, // left hand
-    CKC_R,
-    CKC_S,
-    CKC_T,
-
-    CKC_N, // right hand
-    CKC_E,
-    CKC_I,
-    CKC_O,
-
-    SMTD_KEYCODES_END,
-};
-#include "sm_td.h"
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_smtd(keycode, record)) {
-        return false;
-    }
-    // your code here
-
-   return true;
-}
-
-void on_smtd_action(uint16_t keycode, smtd_action action, uint8_t tap_count) {
-    switch (keycode) {
-        SMTD_MT(CKC_A, KC_A, KC_LGUI)
-        SMTD_MT(CKC_R, KC_R, KC_LALT)
-        SMTD_MT(CKC_S, KC_S, KC_LCTL)
-        SMTD_MT(CKC_T, KC_T, KC_LSFT)
-
-        SMTD_MT(CKC_N, KC_N, KC_RSFT)
-        SMTD_MT(CKC_E, KC_E, KC_RCTL)
-        SMTD_MT(CKC_I, KC_I, KC_RALT)
-        SMTD_MT(CKC_O, KC_O, KC_RGUI)
-    }
-}
-
-enum combos {
-  TN_CAPS_WORD,
-};
-
-const uint16_t PROGMEM tn_combo[] = {LSFT_T(KC_T), RSFT_T(KC_N), COMBO_END};
-
-combo_t key_combos[] = {
-  [TN_CAPS_WORD] = COMBO(tn_combo, QK_CAPS_WORD_TOGGLE),
-};
+ enum layers{
+     MAC_BASE,
+     _FUN,
+     WIN_BASE,
+     _SYM,
+     _NAV,
+     _NUM,
+     WIN_FN
+ };
+ 
+ #define KC_TASK LGUI(KC_TAB)
+ #define KC_FLXP LGUI(KC_E)
+ 
+ #define L_BA1   DF(_ALPHA_COLEMAK_DH_SPLIT)
+ #define L_NAV   MO(_NAV)
+ #define L_SYM   MO(_SYM)
+ #define L_NUM   MO(_NUM)
+ #define L_FN1   MO(_FUN)
+ 
+ #define L_BA2   DF(_ALPHA_COLEMAK_DH)
+ #define L_FN2   MO(_FUN_DH)
+ 
+ enum custom_keycodes {
+     SMTD_KEYCODES_BEGIN = SAFE_RANGE,
+     
+     CKC_A, // left hand
+     CKC_R,
+     CKC_S,
+     CKC_T,
+ 
+     CKC_N, // right hand
+     CKC_E,
+     CKC_I,
+     CKC_O,
+ 
+     SMTD_KEYCODES_END,
+ };
+ #include "sm_td.h"
+ 
+ void on_smtd_action(uint16_t keycode, smtd_action action, uint8_t tap_count) {
+     switch (keycode) {
+         SMTD_MT(CKC_A, KC_A, KC_LGUI)
+         SMTD_MT(CKC_R, KC_R, KC_LALT)
+         SMTD_MT(CKC_S, KC_S, KC_LCTL)
+         SMTD_MT(CKC_T, KC_T, KC_LSFT)
+ 
+         SMTD_MT(CKC_N, KC_N, KC_RSFT)
+         SMTD_MT(CKC_E, KC_E, KC_RCTL)
+         SMTD_MT(CKC_I, KC_I, KC_RALT)
+         SMTD_MT(CKC_O, KC_O, KC_RGUI)
+     }
+ }
+ 
+ enum combos {
+   TN_CAPS_WORD,
+ };
+ 
+ const uint16_t PROGMEM tn_combo[] = {LSFT_T(KC_T), RSFT_T(KC_N), COMBO_END};
+ 
+ combo_t key_combos[] = {
+   [TN_CAPS_WORD] = COMBO(tn_combo, QK_CAPS_WORD_TOGGLE),
+ };
+ 
+ 
+ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+     if (!process_smtd(keycode, record)) {
+         return false;
+     }
+     // your code here
+ 
+    return true;
+ }
+ 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // [MAC_BASE] = LAYOUT_ansi_82(

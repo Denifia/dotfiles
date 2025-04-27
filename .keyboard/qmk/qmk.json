@@ -1,7 +1,7 @@
 {
     "userspace_version": "1.1",
     "build_targets": [
-        ["keychron/v1/ansi_encoder", "denifia"],
-        ["input_club/whitefox", "denifia"]
+        ["input_club/whitefox", "denifia"],
+        ["keychron/v1/ansi_encoder", "denifia"]
     ]
 }

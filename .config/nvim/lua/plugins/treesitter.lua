@@ -7,6 +7,7 @@ return {
   main = 'nvim-treesitter.configs',
   opts = {
     ensure_installed = {
+      'gitcommit',
       'bash',
       'diff',
       'lua',

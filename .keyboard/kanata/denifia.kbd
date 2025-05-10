@@ -9,47 +9,77 @@
 )
 
 #|
-- chord 'g' and 'm' to enter CAPS WORD mode
+;; home row chords
+- r & s for backspace (backward)
+- s & t for delete (forward)
+- g & m to enter CAPS WORD mode
+- n & e for escape
+- e & i for enter
+
+;; bottom row chords
+- z & x for C-z (undo)
+- x & c for C-x (cut)
+- c & d for C-c (copy)
+- d & v for C-v (paste)
+- h & , for : (or use S-,)
+- , & . for ; (or use S-.)
 |#
+
 (deflayer base
   XX   XX   XX   XX   XX   XX      XX   XX   XX   XX   XX   XX   XX   XX
-  XX   q    w    f    p    b       j    l    u    y    '    XX   XX   XX
-  XX   @aa  @rr  @ss  @tt  @chg    @chm @nn  @ee  @ii  o    XX   XX
-  z    x    c    d    v    XX      k    h    ,    .    /    XX
+  XX   q    @w   @f   p    b       j    l    @u   @y   '    XX   XX   XX
+  XX   @a   @r   @s   @t   @g      @m   @n   @e   @i   @o   XX   XX
+  @z   @x   @c   @d   @v   XX      k    @h   @,   @.   /    XX
 
-  XX   XX   @sft               @nav          @sym  @reload
+  XX   XX   @lt2              @lt1          @rt2  @reload
   XX XX XX XX
 )
 
+;; hold spacebar or either inner thumb key to access navigation layer
 ;; right hand thumb holds 'space' then other fingers use vim style movement
+;; left hand thumb holds 'space' then other fingers switch tabs/apps/browser
 (deflayer navigation
   XX   XX   XX   XX   XX   XX      XX   XX   XX   XX   XX   XX   XX   XX
-  XX   @pad @cls bck  fwd  XX      home pgdn pgup end  XX   XX   XX   XX
-  XX   @all @sav S-tab tab XX      lft  down up   rght o    '    XX
-  @ndo @cut @cpy XX   @pst XX      XX   XX   XX   XX   XX   XX
+  XX   XX @cls C-S-tab C-tab XX    home pgdn pgup end  XX   XX   XX   XX
+  XX   bck  fwd S-tab tab  XX      lft  down up   rght XX   XX   XX
+  XX   XX M-S-tab M-tab XX XX      @ma←  @ma↓  @ma↑  @ma→   mltp XX
 
-  XX   XX   del                _             esc  @reload 
+  XX   XX   XX                _             esc  @reload 
   XX XX XX XX
 )
 
-;; left hand pinky holds 'a' then other fingers use 'wasd' style movement
+;; hold left pinky 'a' to access numberpad
+;; note - left handed navigation with 'wasd' style movement
 (deflayer numpad
   _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
   XX   XX   home up   end  pgup    @/   7    8    9    XX   XX   XX   XX
   XX   XX   lft  down rght pgdn    @-   4    5    6    0    XX   XX
   XX   XX   XX   XX   XX   XX      ,    1    2    3    .    XX
   
-  XX   XX   _             @nbs             @std  @reload 
+  XX   XX   _             @nbs             ret @reload 
   XX XX XX XX
 )
 
+;; hold right thumb to access symbols layer
 (deflayer symbols
   _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
   XX   @^   @<   @>   @$   @%      @@   @&   @*   @'   @`   XX   XX   XX
   XX   @{   @pl  @pr  @}   @=      @\   @+   @-   @/   @''  XX   XX
   @~   @[   @]   @_   @#   XX      @|   @!   @;   @:   @?   XX
   
-  XX   XX   bspc                _             esc  @reload 
+  XX   XX   bspc                spc             XX  @reload 
+  XX XX XX XX
+)
+
+;; hold right pinky 'o' to access function & media layer
+;; note - use left hand to add ctrl/alt/shift modifiers before holding 'o'
+(deflayer functions
+  _    _    _    _    _    _       _    _    _    _    _    _    _    _ 
+  XX   XX   XX   XX   XX   XX      f10  f7   f8   f9   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX      f11  f4   f5   f6   XX   XX   XX
+  XX   XX   XX   XX   XX   XX      f12  f1   f2   f3   XX   XX
+  
+  XX   XX   _             @nbs             ret @reload 
   XX XX XX XX
 )
 
@@ -62,26 +92,22 @@
   ;; Slightly higher value for typing keys, to prevent unexpected hold effect.
   long_hold_timeout 300
 
-  chord_timeout 10000
+  capsword_timeout 5000
 )
 
 (defalias 
-  chg (chord wordcaps g)
-  chm (chord wordcaps m)
-  cpswd (caps-word $chord_timeout)
-  
   ;; layers
-    nav (tap-hold $tap_timeout $long_hold_timeout spc (layer-while-held navigation))
-     pad (layer-switch numpad)
-     std (layer-switch base)
-    sym (tap-hold-press $tap_timeout $hold_timeout ret (layer-while-held symbols))
-    aa (tap-hold $tap_timeout $long_hold_timeout a (layer-while-held numpad))
-  
-    ;; mod-tap
-    reload (multi f24 (tap-hold 200 200 _ lrld)) ;; tap = keypress, hold = live reload
-    sft (tap-hold-press $tap_timeout $hold_timeout bspc lsft)
-    
-    
+  nav (tap-hold $tap_timeout $long_hold_timeout spc (layer-while-held navigation))
+  pad (layer-switch numpad)
+  std (layer-switch base)
+  sym (tap-hold-press $tap_timeout $hold_timeout ret (layer-while-held symbols))
+  aa (tap-hold $tap_timeout $long_hold_timeout a (layer-while-held numpad))
+  oo (tap-hold $tap_timeout $long_hold_timeout o (layer-while-held functions))
+
+  ;; mod-tap
+  reload (multi f24 (tap-hold 200 200 _ lrld)) ;; tap = keypress, hold = live reload
+  sft (tap-hold-press $tap_timeout $hold_timeout bspc lsft)
+
   ;; Home-row mods
   ;; rst
   rr (tap-hold $tap_timeout $long_hold_timeout r lmet)
@@ -92,7 +118,7 @@
   ee (tap-hold $tap_timeout $long_hold_timeout e rctl)
   ii (tap-hold $tap_timeout $long_hold_timeout i rmet)
 
-    ;; helper actions
+  ;; helper actions
   all C-a
   sav C-s
   cls C-w
@@ -102,15 +128,142 @@
   pst C-v
 )
 
-(defchords wordcaps 500
+;; caps word
+(defalias
+  chg (chord wordcaps g)
+  chm (chord wordcaps m)
+  cpswd (caps-word $capsword_timeout)
+)
+(defchords wordcaps 80
   (g  ) g 
   (  m) m
+  ;; both hands, home row, index fingers reach inwards
   (g m) @cpswd
 )
 
+;; left top row chords
+;; middle & ring for delete
+(defalias
+  chw (chord lefttoprow w)
+  chf (chord lefttoprow f)
+)
+(defchords lefttoprow 80
+  (w  ) w
+  (  f) f
+  (w f) del
+)
+
+;; left home row cords
+;; index & middle for delete
+;; middle & ring for backspace
+(defalias
+  chr (chord lefthomerow r)
+  chs (chord lefthomerow s)
+)
+(defchords lefthomerow 70
+  (r    ) @rr
+  (  s  ) @ss
+  (r s  ) bspc
+)
+
+;; right home row cords
+;; middle & ring for enter
+(defalias
+  che (chord righthomerow e)
+  chi (chord righthomerow i)
+)
+(defchords righthomerow 50
+  (  e  ) @ee
+  (    i) @ii
+  (  e i) ret
+)
+
+(defalias
+  chu (chord righttoprow u)
+  chy (chord righttoprow y)
+)
+(defchords righttoprow 80
+  (u  ) u
+  (  y) y
+  (u y) esc
+)
+
+;; undo, cut, copy, & paste
+(defalias
+  chz (chord editing z)
+  chx (chord editing x)
+  chc (chord editing c)
+  chd (chord editing d)
+  chv (chord editing v)
+)
+(defchords editing 80
+  (z        ) z
+  (  x      ) x
+  (    c    ) c
+  (      d  ) d
+  (        v) v
+  (z x      ) C-z
+  (  x c    ) C-x
+  (    c d  ) C-c
+  (      d v) C-v
+)
+
+;; colon & semicolon
+(defalias
+  chh (chord colons h)
+  ch, (chord colons ,)
+  ch. (chord colons .)
+)
+(defchords colons 80
+  (h    ) h
+  (  ,  ) ,
+  (    .) .
+  ;;right hand, bottom row, index & middle finger
+  (h ,  ) @:
+  ;;right hand, bottom row, middle & ring finger
+  (  , .) @;
+)
+
+;; 
+
 ;; Symbols layer
 (defalias
-nbs spc ;; no narrow no-break space in Qwerty
+  nbs spc ;; no narrow no-break space in Qwerty
+
+  ;; left thumb buttons
+  lt1 @nav
+  lt2 (multi f23 (tap-hold 200 200 (one-shot-press 1000 lsft) lsft))
+
+  ;; right thumb buttons
+  rt1 @nav
+  ;;rt2 (layer-while-held symbols)
+  rt2 (multi f22 (tap-hold 200 200 (one-shot-press 1000 (layer-while-held symbols)) (layer-while-held symbols)))
+
+  w  @chw
+  f  @chf
+  u  @chu
+  y  @chy
+
+  a  @aa
+  r  @chr
+  s  @chs
+  t  @tt
+  g  @chg
+  m  @chm
+  n  @nn
+  e  @che
+  i  @chi
+  o  @oo
+
+  z  @chz
+  x  @chx
+  c  @chc
+  d  @chd
+  v  @chv
+  k  k
+  h  @chh
+  ,  @ch,
+  .  @ch.
 
   ^  S-6
   <  S-,
@@ -146,23 +299,17 @@ nbs spc ;; no narrow no-break space in Qwerty
   ?  S-/
 )
 
+(defalias
+  ma↑ (movemouse-accel-up 10 1000 1 5)
+  ma← (movemouse-accel-left 10 1000 1 5)
+  ma↓ (movemouse-accel-down 10 1000 1 5)
+  ma→ (movemouse-accel-right 10 1000 1 5)
+)
+
 (defcfg
   process-unmapped-keys   yes
   concurrent-tap-hold     yes
   allow-hardware-repeat   no
 )
 
-#|
-;; not used any more
-(deflayer colemak-wide
- _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
- @norm q w f p b XX j l u y ; [ ]
- _ a r s t g XX m n e i o '
- _ x c d v z XX k h , . /
- _ _ _     _     @reload _
- )
-(defalias wide (layer-switch colemak-wide))
-(defalias norm (layer-switch colemak))
-|#
-
-;; vim: set ft=lisp
+;; vim:ft=lisp:ts=4:
